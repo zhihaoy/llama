@@ -52,6 +52,9 @@ func createOrUpdateFunction(ctx context.Context, g *cli.GlobalState, cfg *functi
 			ImageUri: aws.String(cfg.tag),
 		},
 		PackageType: aws.String(lambda.PackageTypeImage),
+		Architectures: []*string{
+			aws.String("arm64"),
+		},
 	}
 	if cfg.memory != 0 {
 		args.MemorySize = &cfg.memory
