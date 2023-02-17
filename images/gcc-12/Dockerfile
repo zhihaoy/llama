@@ -1,6 +1,12 @@
 FROM lichray/llama-suse
-RUN zypper update && zypper install -y gcc-c++ && zypper cc
-RUN zypper install -y binutils-gold && zypper cc
+RUN export ZYPP_CACHE="$(mktemp -d)" && \
+    zypper -C "${ZYPP_CACHE}" -n update && \
+    zypper -C "${ZYPP_CACHE}" -n install gcc12 libstdc++6-devel-gcc12 && \
+    rm -fr "${ZYPP_CACHE}"
+RUN export ZYPP_CACHE="$(mktemp -d)" && \
+    zypper -C "${ZYPP_CACHE}" -n update && \
+    zypper -C "${ZYPP_CACHE}" -n install gcc-c++ binutils-gold && \
+    rm -fr "${ZYPP_CACHE}"
 COPY --from=lichray/llama-suse /llama_runtime /llama_runtime
 WORKDIR /
 ENTRYPOINT ["/llama_runtime"]
