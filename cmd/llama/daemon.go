@@ -114,9 +114,9 @@ func (c *DaemonCommand) Execute(ctx context.Context, flag *flag.FlagSet, _ ...in
 			fmt.Fprintf(tw, "  Lambda runtime\tms\t%d\n", stats.Stats.Usage.Lambda.Millis)
 			fmt.Fprintf(tw, "  Lambda runtime\tMB-ms\t%d\t$%.2f\n",
 				stats.Stats.Usage.Lambda.MB_Millis,
-				float64(stats.Stats.Usage.Lambda.MB_Millis)*0.0000166667/1000000,
+				float64(stats.Stats.Usage.Lambda.MB_Millis) * 0.0000133334 / 1000000,
 			)
-			cost += float64(stats.Stats.Usage.Lambda.MB_Millis) * 0.0000166667 / 1000000
+			cost += float64(stats.Stats.Usage.Lambda.MB_Millis) * 0.0000133334 / 1000000
 			fmt.Fprintf(tw, "  Lambda requests\t\t%d\t$%.2f\n",
 				stats.Stats.Usage.Lambda.Requests,
 				float64(stats.Stats.Usage.Lambda.Requests)*0.20/1000000,
